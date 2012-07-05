@@ -7,6 +7,7 @@ group :development, :test do
   gem 'pry'
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.10.0'
+  gem 'guard-rspec'
 end
 
 # Gems used only for assets and not required
@@ -19,8 +20,13 @@ end
 
 gem 'jquery-rails', '2.0.0'
 
+# Test gems on Macintosh OS X
 group :test do
   gem 'capybara', '1.1.2'
+  gem 'rb-fsevent', :require => false
+  gem 'growl'
+  gem 'guard-spork'
+  gem 'spork'
 end
 
 group :production do
