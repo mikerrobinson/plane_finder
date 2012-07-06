@@ -1,3 +1,12 @@
 <% provide(:title, 'Home') %>
-<h1>Plane Renter</h1>
-<p>Find planes for rent!</p>
+<div class="center hero-unit">
+  <h1>Welcome to the Plane Renter site</h1>
+
+  <h2>
+    This is the home page for finding or listing a plane for rent
+  </h2>
+
+  <%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
+</div>
+
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
