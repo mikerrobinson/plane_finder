@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.6'
 gem 'thin'
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby'
 
 group :development, :test do
   gem 'pry'
