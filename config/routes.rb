@@ -1,5 +1,10 @@
 PlaneFinder::Application.routes.draw do
-  get "users/new"
+  devise_for :users
+
+  resources :users
+  resources :planes do
+    get 'search', :on => :collection
+  end
 
   root to: 'static_pages#home'
   match '/signup',  to: 'users#new'

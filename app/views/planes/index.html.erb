@@ -1,0 +1,10 @@
+<% provide(:title, 'All planes') %>
+<h1>All planes</h1>
+
+<ul class="planes">
+  <% @planes.each do |plane| %>
+    <li>
+      <%= link_to plane.tail_number, edit_plane_path(plane.id) %>
+    </li>
+  <% end %>
+</ul>

@@ -2,8 +2,15 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
 gem 'thin'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby'
+
+gem 'devise'
+gem 'mongoid', '~> 3.0.0'
+
+gem 'simple_form'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'pry'
@@ -29,6 +36,9 @@ group :test do
   gem 'growl'
   gem 'guard-spork'
   gem 'spork'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'mongoid-rspec'  
 end
 
 group :production do

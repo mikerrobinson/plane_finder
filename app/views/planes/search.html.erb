@@ -1,0 +1,12 @@
+Search for "<%= params[:search] %>" found no results
+
+<% provide(:title, 'Search') %>
+<h1>Search results</h1>
+
+<ul class="planes">
+  <% @planes.each do |plane| %>
+    <li>
+      <%= link_to plane.tail_number, plane %>
+    </li>
+  <% end %>
+</ul>
