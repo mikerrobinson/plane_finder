@@ -6,7 +6,9 @@ gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby'
 
 gem 'devise'
-gem 'mongoid', '~> 3.0.0'
+gem "mongoid", "~> 2.4"
+gem "bson_ext", "~> 1.5"
+gem 'mongoid_fulltext'
 
 gem 'simple_form'
 gem 'will_paginate'
@@ -38,7 +40,7 @@ group :test do
   gem 'spork'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'mongoid-rspec'  
+  # gem 'mongoid-rspec'  
 end
 
 group :production do

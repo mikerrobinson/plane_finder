@@ -1,11 +1,12 @@
 class Plane
   include Mongoid::Document
+  include Mongoid::FullTextSearch
   
   belongs_to :user
   embeds_one :address
   embeds_many :engines
   
-  field :category, type: String, default: "Single Engine Piston"
+  field :classification, type: String, default: "Single Engine Piston"
   field :make, type: String
   field :model, type: String
   field :year, type: Integer
@@ -16,5 +17,7 @@ class Plane
   field :rental_type, type: String
   field :notes, type: String
   field :based_at, type: String
+  
+  fulltext_search_in :make, :model, :name, :tags, :tail_number, :based_at
   
 end

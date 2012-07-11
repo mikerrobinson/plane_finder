@@ -6,4 +6,4 @@ en:
   user:
       welcome: "Thank you for joining KARF.com"
   plane:
-      create: "Airplane created"
+      created: "Airplane created"

@@ -39,7 +39,7 @@ class PlanesController < ApplicationController
   end
 
   def search
-    @planes = Plane.all
+    @planes = Plane.fulltext_search(params[:search])
   end
   
 end
