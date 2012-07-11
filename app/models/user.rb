@@ -41,9 +41,9 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
-  field :name
+  field :admin, :type => Boolean, :default => false
   validates_uniqueness_of :email, :case_sensitive => false
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me
   
 end
 

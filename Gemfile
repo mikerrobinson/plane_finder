@@ -13,7 +13,6 @@ gem 'mongoid_fulltext'
 gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-gem 'rails_admin'
 
 group :development, :test do
   gem 'pry'

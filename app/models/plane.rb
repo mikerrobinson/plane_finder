@@ -4,7 +4,8 @@ class Plane
   
   belongs_to :user
   embeds_one :address
-  embeds_many :engines
+  
+  accepts_nested_attributes_for :address
   
   field :classification, type: String, default: "Single Engine Piston"
   field :make, type: String

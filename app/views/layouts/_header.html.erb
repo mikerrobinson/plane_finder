@@ -13,7 +13,9 @@
         
           <% if user_signed_in? %>
             <li><%= link_to "My Planes", planes_path %></li>
-            <li><%= link_to "Profile", current_user %></li>
+<!--            
+            <li><%= link_to "Profile", current_user %></li> 
+-->
             <li><%= link_to "Settings", edit_user_registration_path(current_user) %></li>
             <li class="divider"></li>
             <li>
