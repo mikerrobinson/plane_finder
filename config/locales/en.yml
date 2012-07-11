@@ -2,8 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  site_name: "KARF.com"
+  site_name: "Project X"
   user:
-      welcome: "Thank you for joining KARF.com"
+      welcome: "Thank you for joining Project X"
   plane:
       created: "Airplane created"
