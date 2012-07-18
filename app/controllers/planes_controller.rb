@@ -3,7 +3,11 @@ class PlanesController < ApplicationController
   before_filter :authenticate_user!, except: [ :search ]
   
   def index
-    @planes = Plane.all
+    unless params[:search].blank?
+      @planes = Plane.fulltext_search(params[:search])
+    else
+      @planes = Plane.all
+    end
   end
   
   def show 
