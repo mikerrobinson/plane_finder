@@ -9,6 +9,7 @@ gem 'devise'
 gem "mongoid", "~> 2.4"
 gem "bson_ext", "~> 1.5"
 gem 'mongoid_fulltext'
+gem "geocoder"
 
 gem 'simple_form'
 gem 'will_paginate'

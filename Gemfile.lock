@@ -71,6 +71,7 @@ GEM
       factory_girl (~> 3.5.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
+    geocoder (1.1.2)
     growl (1.0.3)
     guard (1.2.3)
       listen (>= 0.4.2)
@@ -214,6 +215,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  geocoder
   growl
   guard-rspec
   guard-spork

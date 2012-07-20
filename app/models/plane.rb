@@ -1,6 +1,10 @@
 class Plane
   include Mongoid::Document
   include Mongoid::FullTextSearch
+  include Geocoder::Model::Mongoid
+  
+  geocoded_by :address               # can also be an IP address
+  after_validation :geocode          # auto-fetch coordinates
   
   belongs_to :user
   embeds_one :address
@@ -13,6 +17,7 @@ class Plane
   field :description, type: String
   field :rental_amount, type: BigDecimal
   field :rental_type, type: String
+  field :coordinates, :type => Array
 
   validates_presence_of :base_airport
   validate :has_a_name
