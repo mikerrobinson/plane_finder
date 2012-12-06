@@ -1,16 +1,39 @@
-<% provide(:title, 'Search') %>
+<% provide(:title, 'Search Results') %>
 <h1>Search results</h1>
 
-<ul class="planes">
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+		<form>
+		  <fieldset>
+		    <legend>Airports</legend>
+			<% @airports.each do |airport| %>
+			    <label class="checkbox">
+			      <input type="checkbox"><%= airport %>
+			    </label>
+			<% end %>
+		  </fieldset>
+		  <fieldset>
+		    <legend>Models</legend>
+			<% @models.each do |model| %>
+			    <label class="checkbox">
+			      <input type="checkbox"><%= model %>
+			    </label>
+			<% end %>
+		  </fieldset>
+		</form>
+    </div>
+    <div class="span10">
+      <!--Body content-->
+  	  <% if params[:search].blank? %>
+	 	<h2>Enter an address, airport, or tail number to search</h2>
+	  <% else %>
+        <ul class="planes">
+          <%= render(@planes) || render(partial: "empty_search") %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-  <% if @planes.count < 1 %>
-    Search for "<%= params[:search] %>" found no results
-  <% else %>
-    Search for "<%= params[:search] %>" found:
-    <% @planes.each do |plane| %>
-      <li>
-        <%= link_to plane.tail_number, plane %>
-      </li>
-    <% end %>
-  <% end %>
-</ul>

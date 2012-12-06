@@ -7,10 +7,8 @@ class Plane
   after_validation :geocode          # auto-fetch coordinates
   
   belongs_to :user
-  embeds_one :address
   
-  accepts_nested_attributes_for :address
-    
+  field :image_url, type: String
   field :base_airport, type: String
   field :name, type: String
   field :tail_number, type: String

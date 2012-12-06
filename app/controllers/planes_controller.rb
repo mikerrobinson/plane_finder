@@ -43,7 +43,10 @@ class PlanesController < ApplicationController
   end
 
   def search
+    # @planes = Plane.fulltext_search(params[:search])
     @planes = Plane.fulltext_search(params[:search])
+    @airports = @planes.map { |plane| plane.base_airport.upcase }.uniq
+    @models = [] # @planes.map { |plane| plane.model.humanize }.uniq
   end
   
 end

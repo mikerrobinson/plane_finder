@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= t(:site_name) %> | <%= yield(:title) %></title>
@@ -15,13 +15,14 @@
   <%= render "layouts/shim" %>
 </head>
   <body>
-    <%= render "layouts/header" %>
-    
     <div class="container">
+      <%= render "layouts/header" %>
+
       <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>
       <% end %>
       <%= yield %>
+
       <%= render 'layouts/footer' %>
     </div>
     

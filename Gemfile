@@ -34,6 +34,7 @@ gem 'jquery-rails', '2.0.0'
 
 # Test gems on Macintosh OS X
 group :test do
+  gem 'cucumber-rails', '1.2.1', require: false
   gem 'capybara', '1.1.2'
   gem 'rb-fsevent', :require => false
   gem 'growl'
