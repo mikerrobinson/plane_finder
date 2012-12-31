@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails'
 gem 'thin'
-gem 'bootstrap-sass', '2.0.0'
+gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 
 gem 'devise'
@@ -30,7 +30,7 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-gem 'jquery-rails', '2.0.0'
+gem 'jquery-rails'
 
 # Test gems on Macintosh OS X
 group :test do
