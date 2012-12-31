@@ -16,7 +16,8 @@ class Plane
   field :rental_amount, type: BigDecimal
   field :rental_type, type: String
   field :coordinates, :type => Array
-
+  field :address
+  
   validates_presence_of :base_airport
   validate :has_a_name
   
