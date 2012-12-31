@@ -9,9 +9,20 @@ $grayMediumLight: #eaeaea;
 
 .center {
   text-align: center;
-  h1 {
-    margin-bottom: 10px;
-  }
+}
+
+.panel {
+  width: auto;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #E5E5E5;
+  background-color: white;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+  -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .065);  
 }
 
 /* typography */
@@ -27,22 +38,25 @@ footer {
   padding-top: 5px;
   border-top: 1px solid $grayMediumLight;
   color: $grayLight;
+  text-align:center;
+  
   a {
-    color: $gray;
-    &:hover { 
-      color: $grayDarker;
-    }
+    color: $grayLight;
   }  
-  small { 
-    float: left; 
-  }
   ul {
-    float: right;
-    list-style: none;
+    list-style: none; 
+    margin: 5px 0px 5px 0px;
     li {
-      float: left;
-      margin-left: 10px;
+      border-left: 1px solid $grayLight;
+      display: inline;
+      padding: 0px 15px;
     }
+    li:first-child {
+      border-left: none;
+    }
+  }
+  p {
+    margin: 5px 0px 0px 0px;
   }
 }
 

@@ -1,38 +1,39 @@
-<% provide(:title, 'All planes') %>
+<!-- <% provide(:title, 'Home') %>
+<div class="center">
+  <h1><%= t(:site_name) %></h1>
+
+  <h2>
+    The best way to find or list planes for rent.
+  </h2>
+
+  <div >
+    <%= form_tag search_planes_path, :method => 'get' do  %>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter an address, airport, flight school, or tail number to search" %>
+      <%= submit_tag "Search", :name => nil, class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+
+</div> -->
 
 <div class="row">
-  <div class="span6 offset3">
-  
-  <%= form_tag planes_path, class: "form-inline", method: 'get'  do  %>
-    <%= text_field_tag :search, "", class: "input-medium", placeholder: "Enter tail # or keywords" %>
-    <%= submit_tag "Search", :name => nil, class: "btn" %>
-    <%= link_to "New Plane", new_plane_path, class: "btn" %>
-  <% end %>
+  <div class="span4">
+    <%= form_tag search_planes_path, :method => 'get' do  %>
+      <section class="sidenav">
+        <p class="lead">Search here</p>
+        <p>Find planes for rent by address, airport, flight school, or tail number</p>
+        <%= text_field_tag :search, params[:search], placeholder: "Enter an address, airport, flight school, or tail number to search" %>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+      </section>
+    <% end %>
+  </div>
 
+  <div class="span8">
+    <section class="results">
+      <ul>
+        <li>item 1</li>
+        <li>item 1</li>
+        <li>item 1</li>
+      </ul>
+    </section>
   </div>
 </div>
-
-<div class="row">  
-  <div class="span8 offset2">
-    <table class="table table-bordered">
-      <thead>
-        <tr><h3><%= table_header %></h3></tr>
-        <tr>
-          <th>Tail #</th>
-          <th>Name</th>
-          <th>Base Airport</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @planes.each do |plane| %>
-          <tr>
-            <th><%= link_to plane.tail_number, edit_plane_path(plane.id) %></th>
-            <th><%= plane.name %></th>
-            <th><%= plane.base_airport %></th>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-

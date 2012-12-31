@@ -1,39 +1,33 @@
-<!-- <% provide(:title, 'Home') %>
-<div class="center">
-  <h1><%= t(:site_name) %></h1>
+<% provide(:title, 'Home') %>
+<style type="text/css">
 
-  <h2>
-    The best way to find or list planes for rent.
-  </h2>
+      /* Main marketing message and sign up button */
+      .landing-main {
+        margin: 60px 0 20px 0;
+        text-align: center;
+      }
 
-  <div >
-    <%= form_tag search_planes_path, :method => 'get' do  %>
-      <%= text_field_tag :search, params[:search], placeholder: "Enter an address, airport, flight school, or tail number to search" %>
-      <%= submit_tag "Search", :name => nil, class: "btn btn-large btn-primary" %>
+      .landing-main h2 { margin-bottom: 20px; }
+      
+      form { text-align: center; }
+</style>
+
+<div class="container">
+  
+  <div class="landing-main">
+    <h2>The best way to find or list planes for rent.</h2>
+  </div>
+
+  <%= form_tag search_planes_path, :method => 'get' do  %>
+      <%= text_field_tag :search, params[:search], class: "span6", placeholder: "Enter a location, airport, flight school, or tail number to search" %>
+      <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+  <% end %>
+  
+  <p class="center">
+    <% if user_signed_in? %>
+    Help keep data current by <%= link_to "listing new planes", new_plane_path %> and <%= link_to "updating", planes_path %> your existing rental details 
+    <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> to list planes or edit rental information
     <% end %>
-  </div>
-
-</div> -->
-
-<div class="row">
-  <div class="span4">
-    <%= form_tag search_planes_path, :method => 'get' do  %>
-      <section class="sidenav">
-        <p class="lead">Search here</p>
-        <p>Find planes for rent by address, airport, flight school, or tail number</p>
-        <%= text_field_tag :search, params[:search], placeholder: "Enter an address, airport, flight school, or tail number to search" %>
-        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
-      </section>
-    <% end %>
-  </div>
-
-  <div class="span8">
-    <section class="results">
-      <ul>
-        <li>item 1</li>
-        <li>item 1</li>
-        <li>item 1</li>
-      </ul>
-    </section>
-  </div>
+  </p>
 </div>
