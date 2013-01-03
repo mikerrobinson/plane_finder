@@ -41,9 +41,18 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
+  has_many :planes
   field :admin, :type => Boolean, :default => false
   validates_uniqueness_of :email, :case_sensitive => false
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :website, :phone, :address, :image_url, :base_airport, :name
+  
+  # lister specific fields
+  field :website, :type => String
+  field :phone, :type => String
+  field :address, :type => String
+  field :image_url, type: String
+  field :base_airport, type: String
+  field :name, type: String
   
 end
 

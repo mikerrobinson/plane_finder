@@ -4,10 +4,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= t(:site_name) %> | <%= yield(:title) %></title>
   <style type="text/css">
-        body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-        }
+  /* Sticky footer styles
+  -------------------------------------------------- */
+
+  html,
+  body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+  }
+
+  /* Wrapper for page content to push down footer */
+  #wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 60px auto -60px;
+  }
+
+  /* Set the fixed height of the footer here */
+  #push,
+  #footer {
+    height: 60px;
+  }
+
+  /* Lastly, apply responsive CSS fixes as necessary */
+  @media (max-width: 767px) {
+    #footer {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
   </style>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -15,15 +44,26 @@
   <%= render "layouts/shim" %>
 </head>
   <body>
-    <div class="container">
-      <%= render "layouts/header" %>
+    
+    <div id="wrap">
 
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
-      <%= yield %>
+      <!-- Begin page content -->
+      <div class="container">
+        <%= render "layouts/header" %>
 
-      <%= render 'layouts/footer' %>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+        <%= yield %>
+      </div>
+
+      <div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <%= render 'layouts/footer' %>
+      </div>
     </div>
     
   </body>

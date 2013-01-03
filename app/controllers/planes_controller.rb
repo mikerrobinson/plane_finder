@@ -1,13 +1,11 @@
 class PlanesController < ApplicationController
+  respond_to :html, :json
   
   before_filter :authenticate_user!, except: [ :search ]
   
   def index
-    unless params[:search].blank?
-      @planes = Plane.fulltext_search(params[:search])
-    else
-      @planes = Plane.all
-    end
+    @planes = current_user.planes
+    respond_with @planes
   end
   
   def show 

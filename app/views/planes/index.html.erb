@@ -29,11 +29,12 @@
 
   <div class="span8">
     <section class="results">
-      <ul>
+      <%= render(@planes) || render(partial: "empty_search") %>
+      <!-- <ul>
         <li>item 1</li>
         <li>item 1</li>
         <li>item 1</li>
-      </ul>
+      </ul> -->
     </section>
   </div>
 </div>
