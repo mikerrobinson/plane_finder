@@ -20,6 +20,5 @@ class School
   has_many :planes, inverse_of: :school
   has_many :users
 
-  validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of :name
 end
