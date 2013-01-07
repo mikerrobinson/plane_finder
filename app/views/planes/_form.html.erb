@@ -2,19 +2,40 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :tail_number %>
-    <%= f.input :name %>
-    <%= f.input :base_airport %>
-    <%= f.input :rental_amount %>
-    <%= f.input :rental_type %>
-    <%= f.input :notes_text %>
-    <%= f.input :image_url, disabled: true %>
-    <%= f.input :make %>
-    <%= f.input :model %>
+
+    <%= f.input :base_airport, input_html: { onblur: "value=value.toUpperCase();" } %>
+    <%= f.input :tail_number, wrapper: :prepend do %>
+      <%= content_tag :span, "N", class: "add-on" %>
+      <%= f.input_field :tail_number, onblur: "value=value.toUpperCase();" %>
+    <% end %>
+    <%= f.input :code, placeholder: "C-172, SR-22, etc", input_html: { onblur: "value=value.toUpperCase();" } %>
     <%= f.input :year %>
+    <%= f.input :make, placeholder: "Cessna, Diamond, Cirrus, etc" %>
+    <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %>
+
+    <%= f.input :category, collection: Plane::CATEGORIES %>
+    <%= f.input :endorsements, collection: Plane::ENDORSEMENTS, as: :check_boxes %>
+
+    <div class="control-group">
+      <label class="control-label" for="plane_rental_amount">Rental rate</label>
+      <div class="controls control-row">
+        <div class="input-prepend input-append">
+          <span class="add-on">$</span>
+          <input id="plane_rental_amount" name="plane[rental_amount]" type="text" value="<%= @plane.rental_amount %>"/>
+          <span class="add-on">per hr</span>
+        </div>
+        <select id="plane_rental_type" name="plane[rental_type]">
+          <option>dry</option>
+          <option>wet</option>
+        </select>
+      </div>
+    </div>
+
+    <%= f.input :notes_text, as: :text, input_html: { :rows => 4 } %>
+    <%= f.input :image_url, disabled: true %>
     
     <% if current_user.admin %>
-      <%= f.input :school, collection: School.all, label_method: :name %>
+      <%= f.input :school_id, collection: School.all, label_method: :name %>
     <% end %>
   </div>
 

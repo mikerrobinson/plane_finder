@@ -11,7 +11,7 @@
     <%= f.input :base_airport %>
     
     <% if current_user.admin %>
-      <%= f.input :users, collection: User.all, label_method: :email, input_html: { multiple: "multiple" }, include_blank: true %>
+      <%= f.input :user_ids, collection: User.all, label_method: :email, input_html: { multiple: "multiple" }, include_blank: true %>
     <% end %>
   </div>
 

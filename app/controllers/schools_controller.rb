@@ -1,4 +1,7 @@
 class SchoolsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /schools
   # GET /schools.json
   def index
@@ -41,7 +44,8 @@ class SchoolsController < ApplicationController
   # POST /schools.json
   def create
     @school = School.new(params[:school])
-
+    @school.user_ids = params[:school][:users] if params[:school][:users]
+    
     respond_to do |format|
       if @school.save
         format.html { redirect_to @school, notice: 'School was successfully created.' }
@@ -57,6 +61,7 @@ class SchoolsController < ApplicationController
   # PUT /schools/1.json
   def update
     @school = School.find(params[:id])
+    @school.user_ids = params[:school][:users] if params[:school][:users]
 
     respond_to do |format|
       if @school.update_attributes(params[:school])

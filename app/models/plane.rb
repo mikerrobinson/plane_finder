@@ -4,9 +4,25 @@ class Plane
   include Geocoder::Model::Mongoid
   resourcify
   
-  attr_accessible :school, :image_url, :base_airport, :name, :tail_number, :notes_text,
-                  :rental_amount, :rental_type, :classification, :tags, :make, :model,
-                  :year
+  CATEGORIES = [  "Airplane Single-Engine Land",
+                  "Airplane Single-Engine Sea",
+                  "Airplane Multi-Engine Land",
+                  "Airplane Multi-Engine Sea",
+                  "Helicopter",
+                  "Lighter-than-air",
+                  "Powered parachute",
+                  "Weight-shift-control",
+                  "Simulator"]
+                  
+  ENDORSEMENTS = [ "High performance",
+                   "Complex",
+                   "Tailwheel",
+                   "Aerobatics",
+                   "Light sport",
+                   "Turbine"]
+                   
+  attr_accessible :image_url, :base_airport, :name, :code, :category, :endorsements, :tail_number, :notes_text,
+                  :rental_amount, :rental_type, :tags, :make, :model, :year, :school_id
   
   geocoded_by :address               # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates
@@ -16,6 +32,9 @@ class Plane
   field :image_url, type: String
   field :base_airport, type: String
   field :name, type: String
+  field :code, type: String
+  field :category, type: String
+  field :endorsements, type: Array
   field :tail_number, type: String
   field :notes_text, type: String
   field :rental_amount, type: BigDecimal
@@ -25,9 +44,9 @@ class Plane
   
   validates_presence_of :base_airport
   validate :has_a_name
+  validates :tail_number, uniqueness: true
   
   # these may be auto-populated by parsing :description
-  field :classification, type: String, default: "Single Engine Piston"
   field :tags, type: String
   field :make, type: String
   field :model, type: String

@@ -1,27 +1,29 @@
-<h1>Listing planes</h1>
+<table class="table table-hover table-condensed">
+  <caption><h3>All planes</h3></caption>
+  <thead>
+    <tr>
+      <th>Tail number</th>
+      <th>Name</th>
+      <th>Base airport</th>
+      <th>Rental amount</th>
+      <th>Rental type</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-<table>
-  <tr>
-    <th>Tail number</th>
-    <th>Name</th>
-    <th>Base airport</th>
-    <th>Rental amount</th>
-    <th>Rental type</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @planes.each do |plane| %>
-  <tr>
-    <td><%= plane.tail_number %></td>
-    <td><%= plane.name %></td>
-    <td><%= plane.base_airport %></td>
-    <td><%= plane.rental_amount %></td>
-    <td><%= plane.rental_type %></td>
-    <td><%= link_to 'Edit', edit_plane_path(plane) %></td>
-    <td><%= link_to 'Destroy', plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <% @planes.each do |plane| %>
+    <tr>
+      <td><%= plane.tail_number %></td>
+      <td><%= plane.name %></td>
+      <td><%= plane.base_airport %></td>
+      <td><%= plane.rental_amount %></td>
+      <td><%= plane.rental_type %></td>
+      <td><%= link_to 'Edit', edit_plane_path(plane) %></td>
+      <td><%= link_to 'Destroy', plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  
 </table>
 
 <br />

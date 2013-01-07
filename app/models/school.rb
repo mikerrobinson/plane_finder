@@ -6,7 +6,7 @@ class School
   geocoded_by :address               # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates
   
-  attr_accessible :website, :phone, :address, :image_url, :base_airport, :name, :email, :users, :planes
+  attr_accessible :website, :phone, :address, :image_url, :base_airport, :name, :email, :user_ids, :plane_ids
 
   field :name, type: String
   field :website, :type => String

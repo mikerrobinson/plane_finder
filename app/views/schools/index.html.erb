@@ -1,25 +1,22 @@
-<h1>Listing schools</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Website</th>
-    <th>Image url</th>
-    <th>Phone</th>
-    <th>Email</th>
-    <th>Base airport</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-hover table-condensed">
+  <caption><h3>All schools</h3></caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Website</th>
+      <th>Phone</th>
+      <th>Base airport</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
 <% @schools.each do |school| %>
   <tr>
     <td><%= school.name %></td>
     <td><%= school.website %></td>
-    <td><%= school.image_url %></td>
     <td><%= school.phone %></td>
-    <td><%= school.email %></td>
     <td><%= school.base_airport %></td>
     <td><%= link_to 'Show', school %></td>
     <td><%= link_to 'Edit', edit_school_path(school) %></td>
