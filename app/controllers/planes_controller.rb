@@ -4,7 +4,9 @@ class PlanesController < ApplicationController
   before_filter :authenticate_user!, except: [ :search ]
   
   def index
-    @planes = current_user.planes
+    @planes = []
+    @planes = current_user.school.planes unless current_user.school.blank?
+    @planes = Plane.all if current_user.admin
     respond_with @planes
   end
   
@@ -32,6 +34,7 @@ class PlanesController < ApplicationController
   
   def create
     @plane = Plane.new(params[:plane])
+    @plane.address = Geocoder.address(params[:plane][:base_airport])
     if @plane.save
       flash[:success] = t("plane.created")
       redirect_to planes_path
@@ -40,9 +43,18 @@ class PlanesController < ApplicationController
     end
   end
 
+  def destroy
+    @plane = Plane.find(params[:id])
+    @plane.destroy
+
+    respond_to do |format|
+      format.html { redirect_to planes_url }
+      format.json { head :no_content }
+    end
+  end
+  
   def search
-    # @planes = Plane.fulltext_search(params[:search])
-    @planes = Plane.fulltext_search(params[:search])
+    @planes = Plane.near(params[:search])
     @airports = @planes.map { |plane| plane.base_airport.upcase }.uniq
     @models = [] # @planes.map { |plane| plane.model.humanize }.uniq
   end

@@ -1,53 +1,5 @@
-<% provide(:title, "Add an airplane") %> 
-<h1>Add an airplane profile</h1>
+<h1>New plane</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= simple_form_for(@plane, :html => {:class => 'form-horizontal' }) do |f| %>
-      <%= f.input :base_airport, label: "Based at", placeholder: "Airport code or address" %>
-      <%= f.input :name %>
-      <%= f.input :tail_number %>
-      <%= f.input :description, as: :text, input_html: { :rows => 4 } %>
-      <%= f.input :rental_amount %>
-      <%= f.input :rental_type, :collection => [ "Dry", "Wet" ], :priority => "Wet" %>
-      
-      Contact info
-      
-      Who should interested renters contact about this plane?
-      
-      <label class="radio">
-        <input type="radio" name="ownerRadios" id="ownerRadioUnknown" value="null" checked>
-        I don't know
-      </label>
-      <label class="radio">
-        <input type="radio" name="ownerRadios" id="ownerRadioUser" value="user">
-        Me
-        <label class="checkbox">
-          <input type="checkbox" id="displayName">
-          Display my name with the listing
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" id="displayEmail">
-          Display my email with the listing
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" id="displayPhone">
-          Display my phone number with the listing
-        </label>
-      </label>
-      <label class="radio">
-        <input type="radio" name="ownerRadios" id="ownerRadioSchool" value="school" checked>
-        Flight school:
-        <select>
-          <option>Alliance Flight School</option>
-          <option>Foo Flight School</option>
-          <option>Bar Flight School</option>
-        </select>
-        <a>Add flight school</a>
-      </label>
+<%= render 'form' %>
 
-        
-      <%= f.button :submit %>
-    <% end %>
-  </div>
-</div>
+<%= link_to 'Back', planes_path %>

@@ -46,7 +46,7 @@ Results for blah blah
           <h2>Enter an address, airport, or tail number to search</h2>
         <% else %>
           <ul class="planes">
-            <%= render(@planes) || render(partial: "empty_search") %>
+            <%= render(@planes) || "Sorry, no planes found" %>
           </ul>
         <% end %>
       </div>

@@ -1,5 +1,8 @@
 class User
   include Mongoid::Document
+  resourcify
+  rolify
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -42,17 +45,22 @@ class User
   # field :authentication_token, :type => String
   
   has_many :planes
+  belongs_to :school
+  field :base_airport, type: String
+  
   field :admin, :type => Boolean, :default => false
   validates_uniqueness_of :email, :case_sensitive => false
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :website, :phone, :address, :image_url, :base_airport, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, 
+                  :website, :phone, :address, :image_url, :base_airport, :name,
+                  :school
   
-  # lister specific fields
-  field :website, :type => String
-  field :phone, :type => String
-  field :address, :type => String
-  field :image_url, type: String
-  field :base_airport, type: String
-  field :name, type: String
+  # # lister specific fields
+  # field :website, :type => String
+  # field :phone, :type => String
+  # field :address, :type => String
+  # field :image_url, type: String
+  # field :base_airport, type: String
+  # field :name, type: String
   
 end
 

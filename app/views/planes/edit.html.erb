@@ -1,16 +1,6 @@
-<% provide(:title, "Edit airplane") %> 
-<h1>Update airplane profile</h1>
+<h1>Editing plane</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= simple_form_for(@plane, :html => {:class => 'form-horizontal' }) do |f| %>
-      <%= f.input :base_airport %>
-      <%= f.input :name %>
-      <%= f.input :tail_number %>
-      <%= f.input :description, as: :text, input_html: { :rows => 4 } %>
-      <%= f.input :rental_amount %>
-      <%= f.input :rental_type, :collection => [ "Dry", "Wet" ], :priority => "Wet" %>
-      <%= f.button :submit %>
-    <% end %>
-  </div>
-</div>
+<%= render 'form' %>
+
+<%= link_to 'Show', @plane %> |
+<%= link_to 'Back', planes_path %>

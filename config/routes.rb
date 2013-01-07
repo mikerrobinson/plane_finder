@@ -1,6 +1,6 @@
 PlaneFinder::Application.routes.draw do
+  resources :schools
   devise_for :users
-
   resources :users
   resources :planes do
     get 'search', :on => :collection

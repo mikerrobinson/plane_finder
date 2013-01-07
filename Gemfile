@@ -6,9 +6,10 @@ gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 
 gem 'devise'
-gem "mongoid", "~> 2.4"
+gem 'rolify'
+gem "mongoid", "~> 3.0.0"
 gem "bson_ext", "~> 1.5"
-gem 'mongoid_fulltext'
+# gem 'mongoid_fulltext'
 gem "geocoder"
 
 gem 'simple_form'

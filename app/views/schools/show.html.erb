@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @school.name %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @school.website %>
+</p>
+
+<p>
+  <b>Image url:</b>
+  <%= @school.image_url %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @school.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @school.email %>
+</p>
+
+<p>
+  <b>Base airport:</b>
+  <%= @school.base_airport %>
+</p>
+
+
+<%= link_to 'Edit', edit_school_path(@school) %> |
+<%= link_to 'Back', schools_path %>

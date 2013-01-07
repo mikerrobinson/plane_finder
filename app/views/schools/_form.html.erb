@@ -1,0 +1,21 @@
+<%= simple_form_for(@school) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :website %>
+    <%= f.input :image_url, disabled: true %>
+    <%= f.input :address, as: :text, input_html: { rows: 3 } %>
+    <%= f.input :phone %>
+    <%= f.input :email %>
+    <%= f.input :base_airport %>
+    
+    <% if current_user.admin %>
+      <%= f.input :users, collection: User.all, label_method: :email, input_html: { multiple: "multiple" }, include_blank: true %>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

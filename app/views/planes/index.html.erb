@@ -1,40 +1,29 @@
-<!-- <% provide(:title, 'Home') %>
-<div class="center">
-  <h1><%= t(:site_name) %></h1>
+<h1>Listing planes</h1>
 
-  <h2>
-    The best way to find or list planes for rent.
-  </h2>
+<table>
+  <tr>
+    <th>Tail number</th>
+    <th>Name</th>
+    <th>Base airport</th>
+    <th>Rental amount</th>
+    <th>Rental type</th>
+    <th></th>
+    <th></th>
+  </tr>
 
-  <div >
-    <%= form_tag search_planes_path, :method => 'get' do  %>
-      <%= text_field_tag :search, params[:search], placeholder: "Enter an address, airport, flight school, or tail number to search" %>
-      <%= submit_tag "Search", :name => nil, class: "btn btn-large btn-primary" %>
-    <% end %>
-  </div>
+<% @planes.each do |plane| %>
+  <tr>
+    <td><%= plane.tail_number %></td>
+    <td><%= plane.name %></td>
+    <td><%= plane.base_airport %></td>
+    <td><%= plane.rental_amount %></td>
+    <td><%= plane.rental_type %></td>
+    <td><%= link_to 'Edit', edit_plane_path(plane) %></td>
+    <td><%= link_to 'Destroy', plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
 
-</div> -->
+<br />
 
-<div class="row">
-  <div class="span4">
-    <%= form_tag search_planes_path, :method => 'get' do  %>
-      <section class="sidenav">
-        <p class="lead">Search here</p>
-        <p>Find planes for rent by address, airport, flight school, or tail number</p>
-        <%= text_field_tag :search, params[:search], placeholder: "Enter an address, airport, flight school, or tail number to search" %>
-        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
-      </section>
-    <% end %>
-  </div>
-
-  <div class="span8">
-    <section class="results">
-      <%= render(@planes) || render(partial: "empty_search") %>
-      <!-- <ul>
-        <li>item 1</li>
-        <li>item 1</li>
-        <li>item 1</li>
-      </ul> -->
-    </section>
-  </div>
-</div>
+<%= link_to 'New Plane', new_plane_path %>
