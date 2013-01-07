@@ -4,12 +4,6 @@ class PlanesController < ApplicationController
   before_filter :authenticate_user!, except: [ :search ]
   
   def index
-    User.find_or_create_by(email: "samir.kanuga@gmail.com").tap do |user|
-      user.password = "password"
-      user.admin = true
-      user.save
-    end
-    
     @planes = []
     @planes = current_user.school.planes unless current_user.school.blank?
     @planes = Plane.all if current_user.admin
