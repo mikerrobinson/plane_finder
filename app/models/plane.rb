@@ -33,18 +33,18 @@ class Plane
   field :base_airport, type: String
   field :name, type: String
   field :code, type: String
-  field :category, type: String
+  field :category, type: String, default: "Airplane Single-Engine Land"
   field :endorsements, type: Array
   field :tail_number, type: String
   field :notes_text, type: String
   field :rental_amount, type: BigDecimal
-  field :rental_type, type: String
+  field :rental_type, type: String, default: "wet"
   field :coordinates, :type => Array
   field :address, type: String
   
   validates_presence_of :base_airport
-  validate :has_a_name
-  validates :tail_number, uniqueness: true
+  # validate :has_a_name
+  validates :tail_number, uniqueness: true, allow_blank: true
   
   # these may be auto-populated by parsing :description
   field :tags, type: String
@@ -53,11 +53,11 @@ class Plane
   field :year, type: Integer
 
   # fulltext_search_in :make, :model, :name, :tags, :tail_number, :base_airport
-  
-  def has_a_name
-    if name.blank? and tail_number.blank?
-      errors.add(:name, "Either tail number or name (or both) must be provided")
-    end
-  end
+  # 
+  # def has_a_name
+  #   if name.blank? and tail_number.blank?
+  #     errors.add(:name, "Either tail number or name (or both) must be provided")
+  #   end
+  # end
   
 end

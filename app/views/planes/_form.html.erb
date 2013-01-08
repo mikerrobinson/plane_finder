@@ -3,15 +3,62 @@
 
   <div class="form-inputs">
 
-    <%= f.input :base_airport, input_html: { onblur: "value=value.toUpperCase();" } %>
+    <!-- TODO: convert this to wrapper? -->
+    <!-- base_airport -->
+    <div class="control-group string optional">
+      <label class="string optional control-label" for="plane_base_airport">Base Airport</label>
+      <div class="controls">
+        <input  autocomplete='off' data-provide='typeahead'
+                data-source='<%= Plane.all.distinct(:base_airport) %>' data-items='4' id='plane_base_airport' name='plane[base_airport]' 
+                size='50' type='text' value='<%= @plane.base_airport %>'
+                onblur: 'value=value.toUpperCase();'>
+      </div>
+    </div>
+    <!-- <%= f.input :base_airport, input_html: { onblur: "value=value.toUpperCase();" } %> -->
+
     <%= f.input :tail_number, wrapper: :prepend do %>
       <%= content_tag :span, "N", class: "add-on" %>
       <%= f.input_field :tail_number, onblur: "value=value.toUpperCase();" %>
     <% end %>
-    <%= f.input :code, placeholder: "C-172, SR-22, etc", input_html: { onblur: "value=value.toUpperCase();" } %>
+
+    <!-- TODO: convert this to wrapper? -->
+    <!-- code -->
+    <div class="control-group string optional">
+      <label class="string optional control-label" for="plane_code">Identifier</label>
+      <div class="controls">
+        <input  autocomplete='off' data-provide='typeahead'
+                data-source='<%= Plane.all.distinct(:code) %>' data-items='4' id='plane_code' name='plane[code]' 
+                placeholder='C-172, SR-22, etc' size='50' type='text' value='<%= @plane.code %>'
+                onblur: 'value=value.toUpperCase();'>
+      </div>
+    </div>
+    <!-- <%= f.input :code, placeholder: "C-172, SR-22, etc", input_html: { onblur: "value=value.toUpperCase();" } %> -->
+
     <%= f.input :year %>
-    <%= f.input :make, placeholder: "Cessna, Diamond, Cirrus, etc" %>
-    <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %>
+
+    <!-- TODO: convert this to wrapper? -->
+    <!-- make -->
+    <div class="control-group string optional">
+      <label class="string optional control-label" for="plane_make">Make</label>
+      <div class="controls">
+        <input  autocomplete='off' data-provide='typeahead'
+                data-source='<%= Plane.all.distinct(:make) %>' data-items='4' id='plane_make' name='plane[make]' 
+                placeholder='Cxssna, Diamond, Cirrus, etc' size='50' type='text' value='<%= @plane.make %>'>
+      </div>
+    </div>
+    <!-- <%= f.input :make, placeholder: "Cessna, Diamond, Cirrus, etc", input_html: { autocomplete: "off", "data-provide" => "typeahead", "data-items" => "4", "data-source" => '["mike","foo"]' } %> -->
+
+    <!-- TODO: convert this to wrapper? -->
+    <!-- model -->
+    <div class="control-group string optional">
+      <label class="string optional control-label" for="plane_model">Model</label>
+      <div class="controls">
+        <input  autocomplete='off' data-provide='typeahead'
+                data-source='<%= Plane.all.distinct(:model) %>' data-items='4' id='plane_model' name='plane[model]' 
+                placeholder='172 N, Skyhawk, SR-22, etc' size='50' type='text' value='<%= @plane.model %>'>
+      </div>
+    </div>
+    <!-- <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %> -->
 
     <%= f.input :category, collection: Plane::CATEGORIES %>
     <%= f.input :endorsements, collection: Plane::ENDORSEMENTS, as: :check_boxes %>
@@ -25,8 +72,8 @@
           <span class="add-on">per hr</span>
         </div>
         <select id="plane_rental_type" name="plane[rental_type]">
+          <option selected="selected">wet</option>
           <option>dry</option>
-          <option>wet</option>
         </select>
       </div>
     </div>
