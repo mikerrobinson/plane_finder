@@ -38,27 +38,27 @@
 
     <!-- TODO: convert this to wrapper? -->
     <!-- manufacturer -->
-    <div class="control-group string optional">
+    <!-- <div class="control-group string optional">
       <label class="string optional control-label" for="plane_manufacturer">Manufacturer</label>
       <div class="controls">
         <input  autocomplete='off' data-provide='typeahead'
-                data-source='<%= Plane.all.distinct(:manufacturer) %>' data-items='4' id='plane_manufacturer' name='plane[manufacturer]' 
+                data-source='<%= [] %>' data-items='4' id='plane_manufacturer' name='plane[manufacturer]' 
                 placeholder='Cessna, Diamond, Cirrus, etc' size='50' type='text' value='<%= @plane.manufacturer %>'>
       </div>
-    </div>
-    <!-- <%= f.input :manufacturer, placeholder: "Cessna, Diamond, Cirrus, etc", input_html: { autocomplete: "off", "data-provide" => "typeahead", "data-items" => "4", "data-source" => '["mike","foo"]' } %> -->
+    </div> -->
+    <%= f.input :manufacturer, placeholder: "Cessna, Diamond, Cirrus, etc" %>
 
     <!-- TODO: convert this to wrapper? -->
     <!-- model -->
-    <div class="control-group string optional">
+    <!-- <div class="control-group string optional">
       <label class="string optional control-label" for="plane_model">Model</label>
       <div class="controls">
         <input  autocomplete='off' data-provide='typeahead'
-                data-source='<%= Plane.all.distinct(:model) %>' data-items='4' id='plane_model' name='plane[model]' 
+                data-source='<%= [] %>' data-items='4' id='plane_model' name='plane[model]' 
                 placeholder='172 N, Skyhawk, SR-22, etc' size='50' type='text' value='<%= @plane.model %>'>
       </div>
-    </div>
-    <!-- <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %> -->
+    </div> -->
+    <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %>
 
     <%= f.input :category, collection: Plane::CATEGORIES %>
     <%= f.input :endorsements, collection: Plane::ENDORSEMENTS, as: :check_boxes %>
