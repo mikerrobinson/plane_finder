@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  background: none;
+}
+
 .inline-results {
   padding: 10px;
   margin-bottom: 10px;
@@ -30,4 +34,70 @@
 
 .right-column {
   height: 120px;
+}
+
+#result-container {
+  background-color: rgba(255,255,255,0.6);
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+  border-radius: 32px;
+  padding: 10px 10px;
+  
+  > .row-fluid {
+    background-color: white;
+    border-radius: 16px;
+  }
+  
+  #result-header {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  #filter-container {
+    padding: 10px;
+    border-right: 1px solid #CCC;
+    
+    .filter-group .hidden-actions {
+      display: none;
+      font-size: 12px;
+      position: relative;
+      
+      div {
+        position: absolute;
+        width: 60px;
+        left: -40px;
+        top: 4px;
+        cursor: pointer;
+      }
+    }
+
+    .filter-group:hover .hidden-actions {
+      display: block;
+    }
+            
+    .btn {
+      margin-bottom: 14px;
+    }
+    
+  }
+  
+  #list-container {
+    padding: 10px;
+  }
+  
+}
+
+#advertisement-container {
+
+  .advertisement {
+    height: 100px;
+    background: lightblue;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 4px solid white;
+    padding: 10px;
+  } 
+   
 }

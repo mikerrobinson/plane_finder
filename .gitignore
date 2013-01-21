@@ -29,3 +29,9 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+
+ACFTREF.txt
+MASTER.txt
+ENGINE.txt
+OUTPUT.csv
+airports.csv

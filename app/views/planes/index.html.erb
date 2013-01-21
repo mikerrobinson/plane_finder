@@ -1,31 +1,129 @@
-<table class="table table-hover table-condensed">
-  <caption><h3>All planes</h3></caption>
-  <thead>
-    <tr>
-      <th>Tail number</th>
-      <th>Name</th>
-      <th>Base airport</th>
-      <th>Rental amount</th>
-      <th>Rental type</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<% provide(:title, 'Search Results') %>
 
-  <% @planes.each do |plane| %>
-    <tr>
-      <td><%= plane.tail_number %></td>
-      <td><%= plane.name %></td>
-      <td><%= plane.base_airport %></td>
-      <td><%= plane.rental_amount %></td>
-      <td><%= plane.rental_type %></td>
-      <td><%= link_to 'Edit', edit_plane_path(plane) %></td>
-      <td><%= link_to 'Destroy', plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
+<!-- sidebar -->
+<div class="row-fluid">
+
+  <div id="result-container" class="span10">
+    
+    <div id="result-header">
+      <h4><%= pluralize(@planes.count, 'matching plane') %></h4>
+    </div>
+
+    <div class="row-fluid">
+
+      <div id="filter-container" class="span3">
+        <%= simple_form_for @filter, method: "get", url: planes_path do |f| %>
+          <%= f.input :query, label: false, input_html: { class: "span12" }, placeholder: "Airport or Tail Number" %>
+          <%= f.button :submit, "Update filter" %>
+          
+          <div class='filter-group'>
+            <div class='hidden-actions pull-right'>
+              <div>
+                <a class='select-all'>all</a>
+                <a class='select-none'>none</a>
+              </div>
+            </div>
+            <legend>Endorsements</legend>
+            <%= f.input :endorsements, collection: @endorsement_options, hidden_fields: false, label: false, as: :check_boxes %>
+          </div>
+          
+          <div class='filter-group'>
+            <div class='hidden-actions pull-right'>
+              <div>
+                <a class='select-all'>all</a>
+                <a class='select-none'>none</a>
+              </div>
+            </div>
+            <legend>Categories</legend>
+            <%= f.input :categories, collection: @category_options, label: false, as: :check_boxes %>
+          </div>
+          
+          <div class='filter-group'>
+            <div class='hidden-actions pull-right'>
+              <div>
+                <a class='select-all'>all</a>
+                <a class='select-none'>none</a>
+              </div>
+            </div>
+            <legend>Aircraft Types</legend>
+            <%= f.input :aircraft_types, collection: @aircraft_type_options, label: false, as: :check_boxes %>
+          </div>
+          
+          <div class='filter-group'>
+            <div class='hidden-actions pull-right'>
+              <div>
+                <a class='select-all'>all</a>
+                <a class='select-none'>none</a>
+              </div>
+            </div>
+            <legend>Engine Types</legend>
+            <%= f.input :engine_types, collection: @engine_type_options, label: false, as: :check_boxes %>
+          </div>
+        <% end %>
+      </div>
+
+      <div id="list-container" class="span9">
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>Tail number</th>
+              <th>Name</th>
+              <th>Base airport</th>
+              <th>Rental amount</th>
+              <th>Rental type</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <% @planes.each do |plane| %>
+            <tr>
+              <td><%= plane.tail_number %></td>
+              <td><%= plane.name %></td>
+              <td><%= plane.base_airport %></td>
+              <td><%= plane.rental_amount %></td>
+              <td><%= plane.rental_type %></td>
+              <td><a data-toggle="modal" href="<%= edit_plane_path(plane) %>" data-target="#edit-modal">Edit</a></td>
+              <td><%= link_to 'Destroy', plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+
+        </table>
+
+        <%= paginate @planes %>
+
+        <%= link_to 'New Plane', new_plane_path %>
+
+      </div>
+
+    </div>
+
+    <div id="edit-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Modal header</h3>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="advertisement-container" class="span2">
+    <div class="advertisement">
+      Feature listing/school #1
+    </div>
+    <div class="advertisement">
+      Feature listing/school #2
+    </div>
+    <div class="advertisement">
+      Feature listing/school #3
+    </div>
+  </div>
   
-</table>
-
-<br />
-
-<%= link_to 'New Plane', new_plane_path %>
+</div>

@@ -1,4 +1,4 @@
-<%= simple_form_for(@plane) do |f| %>
+<%= simple_form_for(@plane, html: { :class => 'form-horizontal' }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -37,16 +37,16 @@
     <%= f.input :year %>
 
     <!-- TODO: convert this to wrapper? -->
-    <!-- make -->
+    <!-- manufacturer -->
     <div class="control-group string optional">
-      <label class="string optional control-label" for="plane_make">Make</label>
+      <label class="string optional control-label" for="plane_manufacturer">Manufacturer</label>
       <div class="controls">
         <input  autocomplete='off' data-provide='typeahead'
-                data-source='<%= Plane.all.distinct(:make) %>' data-items='4' id='plane_make' name='plane[make]' 
-                placeholder='Cxssna, Diamond, Cirrus, etc' size='50' type='text' value='<%= @plane.make %>'>
+                data-source='<%= Plane.all.distinct(:manufacturer) %>' data-items='4' id='plane_manufacturer' name='plane[manufacturer]' 
+                placeholder='Cessna, Diamond, Cirrus, etc' size='50' type='text' value='<%= @plane.manufacturer %>'>
       </div>
     </div>
-    <!-- <%= f.input :make, placeholder: "Cessna, Diamond, Cirrus, etc", input_html: { autocomplete: "off", "data-provide" => "typeahead", "data-items" => "4", "data-source" => '["mike","foo"]' } %> -->
+    <!-- <%= f.input :manufacturer, placeholder: "Cessna, Diamond, Cirrus, etc", input_html: { autocomplete: "off", "data-provide" => "typeahead", "data-items" => "4", "data-source" => '["mike","foo"]' } %> -->
 
     <!-- TODO: convert this to wrapper? -->
     <!-- model -->

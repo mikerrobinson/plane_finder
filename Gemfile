@@ -7,18 +7,20 @@ gem 'bcrypt-ruby'
 
 gem 'devise'
 gem 'rolify'
-gem "mongoid", "~> 3.0.0"
-gem "bson_ext", "~> 1.5"
+gem 'mongoid', '~> 3.0.0'
+gem 'bson_ext', '~> 1.5'
 # gem 'mongoid_fulltext'
-gem "geocoder"
+gem 'geocoder'
+gem 'pg'
+gem 'redis'
 
 gem 'simple_form'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
+# gem 'will_paginate'
+# gem 'will_paginate-bootstrap'
+gem 'kaminari'
 
 group :development, :test do
   gem 'pry'
-  gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.10.0'
   gem 'guard-rspec'
 end
@@ -44,9 +46,4 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   # gem 'mongoid-rspec'  
-end
-
-group :production do
-  gem 'pg', '0.12.2'
-  ruby "1.9.3"
 end
