@@ -1,38 +1,12 @@
-<%= simple_form_for(@plane, html: { :class => 'form-horizontal' }) do |f| %>
+<%= simple_form_for(@plane, html: { :class => 'form-horizontal' }, remote: true) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-
-    <!-- TODO: convert this to wrapper? -->
-    <!-- base_airport -->
-    <div class="control-group string optional">
-      <label class="string optional control-label" for="plane_base_airport">Base Airport</label>
-      <div class="controls">
-        <input  autocomplete='off' data-provide='typeahead'
-                data-source='<%= Plane.all.distinct(:base_airport) %>' data-items='4' id='plane_base_airport' name='plane[base_airport]' 
-                size='50' type='text' value='<%= @plane.base_airport %>'
-                onblur: 'value=value.toUpperCase();'>
-      </div>
-    </div>
-    <!-- <%= f.input :base_airport, input_html: { onblur: "value=value.toUpperCase();" } %> -->
 
     <%= f.input :tail_number, wrapper: :prepend do %>
       <%= content_tag :span, "N", class: "add-on" %>
       <%= f.input_field :tail_number, onblur: "value=value.toUpperCase();" %>
     <% end %>
-
-    <!-- TODO: convert this to wrapper? -->
-    <!-- code -->
-    <div class="control-group string optional">
-      <label class="string optional control-label" for="plane_code">Identifier</label>
-      <div class="controls">
-        <input  autocomplete='off' data-provide='typeahead'
-                data-source='<%= Plane.all.distinct(:code) %>' data-items='4' id='plane_code' name='plane[code]' 
-                placeholder='C-172, SR-22, etc' size='50' type='text' value='<%= @plane.code %>'
-                onblur: 'value=value.toUpperCase();'>
-      </div>
-    </div>
-    <!-- <%= f.input :code, placeholder: "C-172, SR-22, etc", input_html: { onblur: "value=value.toUpperCase();" } %> -->
 
     <%= f.input :year %>
 
@@ -60,18 +34,20 @@
     </div> -->
     <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %>
 
-    <%= f.input :category, collection: Plane::CATEGORIES %>
-    <%= f.input :endorsements, collection: Plane::ENDORSEMENTS, as: :check_boxes %>
+    <%= f.input :category_value, label: "Category", collection: Plane::CATEGORIES %>
+    <%= f.input :aircraft_type_value, label: "Aircraft type", collection: Plane::AIRCRAFT_TYPES %>
+    <%= f.input :engine_type_value, label: "Engine type", collection: Plane::ENGINE_TYPES %>
+    <%= f.input :endorsement_values, label: "Endorsements", collection: Plane::ENDORSEMENTS, as: :check_boxes %>
 
     <div class="control-group">
       <label class="control-label" for="plane_rental_amount">Rental rate</label>
       <div class="controls control-row">
-        <div class="input-prepend input-append">
+        <div class="input-prepend input-append inline span6">
           <span class="add-on">$</span>
-          <input id="plane_rental_amount" name="plane[rental_amount]" type="text" value="<%= @plane.rental_amount %>"/>
+          <input id="plane_rental_amount" class="span6" name="plane[rental_amount]" type="text" value="<%= @plane.rental_amount %>"/>
           <span class="add-on">per hr</span>
         </div>
-        <select id="plane_rental_type" name="plane[rental_type]">
+        <select id="plane_rental_type" class="span3 inline" name="plane[rental_type]">
           <option selected="selected">wet</option>
           <option>dry</option>
         </select>
@@ -85,8 +61,5 @@
       <%= f.input :school_id, collection: School.all, label_method: :name %>
     <% end %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
 <% end %>
+

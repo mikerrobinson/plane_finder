@@ -7,4 +7,13 @@ class Filter
   field :engine_types, :type => Array, :default => Plane::ENGINE_TYPES
   field :categories, :type => Array, :default => Plane::CATEGORIES
   
+  def initialize params
+    if params
+      return super(params) if params[:previous_query] == params[:query]
+      return super({ query: params[:query] })
+    else
+      return super
+    end    
+  end
+  
 end

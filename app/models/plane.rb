@@ -10,7 +10,8 @@ class Plane
   ENGINE_TYPES = [ "None", "Reciprocating", "Turbo-prop", "Turbo-shaft", "Turbo-jet", "Turbo-fan", "Ramjet", "2 Cycle", "4 Cycle", "Unknown", "Electric", "Rotary" ]
 
   attr_accessible :image_url, :base_airport, :name, :code, :category, :endorsements, :tail_number, :notes_text,
-                  :rental_amount, :rental_type, :tags, :make, :model, :year, :school_id
+                  :rental_amount, :rental_type, :tags, :manufacturer, :model, :year, :school_id,
+                  :category_value, :endorsement_values, :aircraft_type_value, :engine_type_value
   
   geocoded_by :address               # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates
@@ -20,26 +21,26 @@ class Plane
   field :tail_number
   field :manufacturer
   field :model
-  field :category, type: Integer
+  field :category, type: Integer, default: 1
   field :cert_type, type: Integer
-  field :engines, type: Integer
+  field :engines, type: Integer, default: 1
   field :seats, type: Integer
   field :weight, type: Integer
   field :hp, type: Integer
   field :thrust, type: Integer
   field :year, type: Integer
-  field :aircraft_type, type: Integer
-  field :engine_type, type: Integer
+  field :aircraft_type, type: Integer, default: 4
+  field :engine_type, type: Integer, default: 1
   embeds_one :owner  
     
   field :image_url, type: String
   field :base_airport, type: String
   field :name, type: String
   field :code, type: String
-  field :endorsements, type: Integer
+  field :endorsements, type: Array
   field :notes_text, type: String
   field :rental_amount, type: BigDecimal
-  field :rental_type, type: String
+  field :rental_type, type: String, default: "wet"
   field :coordinates, :type => Array
   field :address, type: String
   field :tags, type: String
@@ -51,26 +52,37 @@ class Plane
 
   validates :tail_number, uniqueness: true, allow_blank: true
  
-  #  
-  # def endorsements=(endorsements)
-  #   self.endorsements_mask = (endorsements & ENDORSEMENTS).map { |r| 2**ENDORSEMENTS.index(r) }.inject(0, :+)
-  # end
-  # 
-  # def endorsements
-  #   ENDORSEMENTS.reject do |r|
-  #     ((endorsements_mask || 0) & 2**ENDORSEMENTS.index(r)).zero?
-  #   end
-  # end
-  # 
-  # def self.endorsements endorsements_mask
-  #   ENDORSEMENTS.reject do |r|
-  #     ((endorsements_mask || 0) & 2**ENDORSEMENTS.index(r)).zero?
-  #   end
-  # end
-  # 
-  # def self.endorsements_mask endorsements
-  #   (endorsements & ENDORSEMENTS).map { |r| 2**ENDORSEMENTS.index(r) }.inject(0, :+)
-  # end
+  def endorsement_values
+    endorsements.map { |v| ENDORSEMENTS[v] }
+  end
+  
+  def endorsement_values= values
+    self.endorsements = values.reject!(&:empty?).map { |v| ENDORSEMENTS.index(v) }
+  end
+  
+  def category_value
+    CATEGORIES[category - 1]
+  end
+  
+  def category_value= value
+    self.category = CATEGORIES.index(value) + 1
+  end
+  
+  def aircraft_type_value
+    AIRCRAFT_TYPES[aircraft_type - 1]
+  end
+  
+  def aircraft_type_value= value
+    self.aircraft_type = AIRCRAFT_TYPES.index(value) + 1
+  end
+  
+  def engine_type_value
+    ENGINE_TYPES[engine_type]
+  end
+  
+  def engine_type_value= value
+    self.engine_type = ENGINE_TYPES.index(value)
+  end
   
 end
 

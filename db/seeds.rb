@@ -52,7 +52,7 @@ File.open("planes.json", "wb") do |json|
       endorsements << 0 if plane.has_key?(:hp) and plane[:hp] > 200
       endorsements << 3 if row["CERTIFICATION"] =~ /^1.*A.*/
       plane[:endorsements] = endorsements
-      
+
       json.puts plane.to_json
     end
     

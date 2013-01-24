@@ -7,12 +7,12 @@ class PlanesController < ApplicationController
 
     selection = Plane.all
     
+    # reset the filter if keywords changed
     @filter = Filter.new(params[:filter])
-    
-    
+
     case @filter.query
     when /^N[1-9][0-9]{0,4}$|^N[1-9][0-9]{0,3}[A-Z]$|^N[1-9][0-9]{0,2}[A-Z]{2}$/i
-      selection = Plane.where(tail_number: @filter.query.upcase)
+      selection = Plane.where(tail_number: @filter.query[1..-1].upcase)
     when /^K\w{3,4}$/i
       selection = Plane.where(base_airport: @filter.query.upcase)
     when present?
@@ -22,7 +22,7 @@ class PlanesController < ApplicationController
     @category_options = selection.distinct(:category).sort.map { |i| Plane::CATEGORIES[i-1] }
     @aircraft_type_options = selection.distinct(:aircraft_type).sort.map { |i| Plane::AIRCRAFT_TYPES[i-1] }
     @engine_type_options = selection.distinct(:engine_type).sort.map { |i| Plane::ENGINE_TYPES[i-1] }
-    @endorsement_options = selection.distinct(:endorsements).sort.map { |i| Plane::ENDORSEMENTS[i-1] }
+    @endorsement_options = selection.distinct(:endorsements).sort.map { |i| Plane::ENDORSEMENTS[i] }
 
     selection = filter_endorsements(selection) if @filter.endorsements
     selection = filter_categories(selection) if @filter.categories
@@ -30,26 +30,12 @@ class PlanesController < ApplicationController
     selection = filter_engine_types(selection) if @filter.engine_types
     
     @planes = selection.page(params[:page])
-
     respond_with @planes
   end
 
-  def get_scope
-    case params[:search]
-    when /^N[1-9][0-9]{0,4}$|^N[1-9][0-9]{0,3}[A-Z]$|^N[1-9][0-9]{0,2}[A-Z]{2}$/i
-      @planes = Plane.where(tail_number: params[:search].upcase)
-    when /^K\w{3,4}$/i
-      @planes = Plane.where(base_airport: params[:search].upcase)
-    when nil
-      @planes = Plane.all
-    else
-      @planes = Plane.near(params[:search]) if params[:search]
-    end
-  end
-  
   def show 
     if params[:id].upcase =~ /^[1-9][0-9]{0,4}$|^[1-9][0-9]{0,3}[A-Z]$|^[1-9][0-9]{0,2}[A-Z]{2}$/
-      @plane = Plane.where(tail_number: params[:id].upcase).first
+      @plane = Plane.find_by(tail_number: params[:id].upcase)
     else
       @plane = Plane.find(params[:id])
     end
@@ -67,12 +53,15 @@ class PlanesController < ApplicationController
 
   def update
     @plane = Plane.find(params[:id])
-    if @plane.update_attributes(params[:plane])
-      flash[:success] = "Airplane information updated"
-      redirect_to planes_path
-    else
-      render 'edit'
-    end
+    @plane.update_attributes(params[:plane])
+    render "show", layout: false
+    
+    # if @plane.update_attributes(params[:plane])
+    #   flash[:success] = "Airplane information updated"
+    #   redirect_to planes_path
+    # else
+    #   render 'edit'
+    # end
   end
   
   def new
