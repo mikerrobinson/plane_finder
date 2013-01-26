@@ -53,6 +53,7 @@ class PlanesController < ApplicationController
 
   def update
     @plane = Plane.find(params[:id])
+    @plane.address = Geocoder.address(params[:plane][:base_airport])
     @plane.update_attributes(params[:plane])
     render "show", layout: false
     
@@ -66,6 +67,10 @@ class PlanesController < ApplicationController
   
   def new
     @plane = Plane.new
+    respond_with @plane do |format|
+      format.html { render :layout => false }
+      format.json { render :layout => false, :text => @plane.to_json }
+    end
   end
   
   def create

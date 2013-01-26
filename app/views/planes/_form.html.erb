@@ -8,7 +8,25 @@
       <%= f.input_field :tail_number, onblur: "value=value.toUpperCase();" %>
     <% end %>
 
-    <%= f.input :year %>
+    <%= f.input :base_airport %>
+
+    <div class="control-group">
+      <label class="control-label" for="plane_rental_amount">Rental rate</label>
+      <div class="controls control-row">
+        <div class="input-prepend input-append inline span6">
+          <span class="add-on">$</span>
+          <input id="plane_rental_amount" class="span6" name="plane[rental_amount]" type="text" value="<%= @plane.rental_amount %>"/>
+          <span class="add-on">per hr</span>
+        </div>
+        <select id="plane_rental_type" class="span3 inline" name="plane[rental_type]">
+          <option <%= "selected='selected'" unless @plane.rental_type == "dry" %>>wet</option>
+          <option <%= "selected='selected'" if @plane.rental_type == "dry" %>>dry</option>
+        </select>
+      </div>
+    </div>
+    <% if current_user.admin %>
+      <%= f.input :school_id, collection: School.all, label_method: :name %>
+    <% end %>
 
     <!-- TODO: convert this to wrapper? -->
     <!-- manufacturer -->
@@ -39,27 +57,11 @@
     <%= f.input :engine_type_value, label: "Engine type", collection: Plane::ENGINE_TYPES %>
     <%= f.input :endorsement_values, label: "Endorsements", collection: Plane::ENDORSEMENTS, as: :check_boxes %>
 
-    <div class="control-group">
-      <label class="control-label" for="plane_rental_amount">Rental rate</label>
-      <div class="controls control-row">
-        <div class="input-prepend input-append inline span6">
-          <span class="add-on">$</span>
-          <input id="plane_rental_amount" class="span6" name="plane[rental_amount]" type="text" value="<%= @plane.rental_amount %>"/>
-          <span class="add-on">per hr</span>
-        </div>
-        <select id="plane_rental_type" class="span3 inline" name="plane[rental_type]">
-          <option selected="selected">wet</option>
-          <option>dry</option>
-        </select>
-      </div>
-    </div>
-
+    <%= f.input :external_url %>
+    
     <%= f.input :notes_text, as: :text, input_html: { :rows => 4 } %>
     <%= f.input :image_url, disabled: true %>
     
-    <% if current_user.admin %>
-      <%= f.input :school_id, collection: School.all, label_method: :name %>
-    <% end %>
   </div>
 <% end %>
 

@@ -37,10 +37,12 @@ class Plane
   field :base_airport, type: String
   field :name, type: String
   field :code, type: String
-  field :endorsements, type: Array
+  field :endorsements, type: Array, default: []
   field :notes_text, type: String
   field :rental_amount, type: BigDecimal
   field :rental_type, type: String, default: "wet"
+  field :external_url, type: String
+
   field :coordinates, :type => Array
   field :address, type: String
   field :tags, type: String
@@ -82,6 +84,20 @@ class Plane
   
   def engine_type_value= value
     self.engine_type = ENGINE_TYPES.index(value)
+  end
+  
+  def rental
+    return "" unless rental_amount 
+    "#{rental_amount}/hr #{rental_type}"
+  end
+  
+  def abbreviated_type
+    return "ASEL" if category==1 and aircraft_type==4
+    return "AMEL" if category==1 and aircraft_type==5
+    return "ASES" if category==2 and aircraft_type==4
+    return "AMES" if category==2 and aircraft_type==5
+    return "Helicopter" if aircraft_type==6
+    "#{Plane::AIRCRAFT_TYPES[aircraft_type-1]} #{Plane::CATEGORIES[category-1]}"
   end
   
 end

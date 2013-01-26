@@ -76,11 +76,11 @@
         <table class="table table-hover table-condensed">
           <thead>
             <tr>
-              <th>Tail number</th>
-              <th>Name</th>
-              <th>Base airport</th>
-              <th>Rental amount</th>
-              <th>Rental type</th>
+              <th>Tail</th>
+              <th>Year</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Rental</th>
               <th></th>
               <th></th>
             </tr>
@@ -89,10 +89,10 @@
           <% @planes.each do |plane| %>
             <tr data-id="<%= plane.id %>">
               <td><%= plane.tail_number %></td>
-              <td><%= plane.name %></td>
-              <td><%= plane.base_airport %></td>
-              <td><%= plane.rental_amount %></td>
-              <td><%= plane.rental_type %></td>
+              <td><%= plane.year %></td>
+              <td><%= plane.manufacturer.titleize %> <%= plane.model %></td>
+              <td><%= plane.abbreviated_type %></td>
+              <td><%= plane.rental %></td>
               <td><a data-toggle="modal" href="<%= edit_plane_path(plane) %>" data-target="#edit-modal">Edit</a></td>
               <td><%= link_to 'Destroy', plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
@@ -102,7 +102,7 @@
 
         <%= paginate @planes %>
 
-        <%= link_to 'New Plane', new_plane_path %>
+        <a data-toggle="modal" href="<%= new_plane_path %>" data-target="#edit-modal">New Plane</a>
 
       </div>
 
