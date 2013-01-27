@@ -28,6 +28,8 @@
       <%= f.input :school_id, collection: School.all, label_method: :name %>
     <% end %>
 
+    <%= f.input :year %>
+
     <!-- TODO: convert this to wrapper? -->
     <!-- manufacturer -->
     <!-- <div class="control-group string optional">
@@ -50,7 +52,8 @@
                 placeholder='172 N, Skyhawk, SR-22, etc' size='50' type='text' value='<%= @plane.model %>'>
       </div>
     </div> -->
-    <%= f.input :model, placeholder: "172 N, Skyhawk, SR-22, etc" %>
+    <%= f.input :model, placeholder: "172N, SR22, etc" %>
+    <%= f.input :name, placeholder: "Skyhawk, Arrow, etc" %>
 
     <%= f.input :category_value, label: "Category", collection: Plane::CATEGORIES %>
     <%= f.input :aircraft_type_value, label: "Aircraft type", collection: Plane::AIRCRAFT_TYPES %>

@@ -21,6 +21,8 @@ class Plane
   field :tail_number
   field :manufacturer
   field :model
+  field :model_name
+  field :model_code
   field :category, type: Integer, default: 1
   field :cert_type, type: Integer
   field :engines, type: Integer, default: 1
