@@ -8,7 +8,7 @@
       <%= f.input_field :tail_number, onblur: "value=value.toUpperCase();" %>
     <% end %>
 
-    <%= f.input :base_airport %>
+    <%= f.input :base_airport, input_html: { onblur: "value=value.toUpperCase();" } %>
 
     <div class="control-group">
       <label class="control-label" for="plane_rental_amount">Rental rate</label>

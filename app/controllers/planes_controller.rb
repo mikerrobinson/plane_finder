@@ -15,6 +15,9 @@ class PlanesController < ApplicationController
       selection = Plane.where(tail_number: @filter.query[1..-1].upcase)
     when /^K\w{3,4}$/i
       selection = Plane.where(base_airport: @filter.query.upcase)
+    when /^\w{3,4}$/i
+      selection = Plane.where(base_airport: "K#{@filter.query.upcase}")
+      selection = Plane.near(@filter.query) if selection.count == 0
     when present?
       selection = Plane.near(@filter.query)
     end
@@ -113,9 +116,13 @@ class PlanesController < ApplicationController
       selection = Plane.where(tail_number: @filter.query[1..-1].upcase)
     when /^K\w{3,4}$/i
       selection = Plane.where(base_airport: @filter.query.upcase)
+    when /^\w{3,4}$/i
+      selection = Plane.where(base_airport: "K#{@filter.query.upcase}")
+      selection = Plane.near(@filter.query) if selection.count == 0
     else
       selection = Plane.near(@filter.query)
     end
+
 
     # @category_options = selection.distinct(:category).sort.map { |i| Plane::CATEGORIES[i-1] }
     # @aircraft_type_options = selection.distinct(:aircraft_type).sort.map { |i| Plane::AIRCRAFT_TYPES[i-1] }
