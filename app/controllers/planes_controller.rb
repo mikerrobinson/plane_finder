@@ -95,9 +95,49 @@ class PlanesController < ApplicationController
   end
   
   def search
-    @planes = Plane.near(params[:search])
-    @airports = @planes.map { |plane| plane.base_airport.upcase }.uniq
-    @models = [] # @planes.map { |plane| plane.model.humanize }.uniq
+    # results = Plane.near(params[:search])
+    # 
+    # @planes = results.page(params[:page])
+    # @airports = results.map { |plane| plane.base_airport.upcase }.uniq
+    # @models = [] # @planes.map { |plane| plane.model.humanize }.uniq
+    # 
+    
+    selection = Plane.all
+    
+    # reset the filter if keywords changed
+    params[:filter] ||= { query: params[:search] }
+    @filter = Filter.new(params[:filter])
+
+    case @filter.query
+    when /^N[1-9][0-9]{0,4}$|^N[1-9][0-9]{0,3}[A-Z]$|^N[1-9][0-9]{0,2}[A-Z]{2}$/i
+      selection = Plane.where(tail_number: @filter.query[1..-1].upcase)
+    when /^K\w{3,4}$/i
+      selection = Plane.where(base_airport: @filter.query.upcase)
+    else
+      selection = Plane.near(@filter.query)
+    end
+
+    # @category_options = selection.distinct(:category).sort.map { |i| Plane::CATEGORIES[i-1] }
+    # @aircraft_type_options = selection.distinct(:aircraft_type).sort.map { |i| Plane::AIRCRAFT_TYPES[i-1] }
+    # @engine_type_options = selection.distinct(:engine_type).sort.map { |i| Plane::ENGINE_TYPES[i-1] }
+    @endorsement_options = selection.distinct(:endorsements).sort.map { |i| Plane::ENDORSEMENTS[i] }
+    @airport_options = selection.distinct(:base_airport).sort
+    
+    @filter.airports = @airport_options unless params[:filter][:previous_query] == params[:filter][:query]
+    
+    selection = filter_endorsements(selection) if @filter.endorsements
+    selection = filter_airports(selection) if @filter.airports
+    
+    # selection = filter_categories(selection) if @filter.categories
+    # selection = filter_aircraft_types(selection) if @filter.aircraft_types
+    # selection = filter_engine_types(selection) if @filter.engine_types
+    
+    @planes = selection.page(params[:page])
+    respond_with @planes    
+    
+    
+    
+    
   end
 
   private
@@ -107,6 +147,10 @@ class PlanesController < ApplicationController
     included_values = @filter.endorsements.reject { |c| c.empty? }.inject([{endorsements:[]}]) { |s,e| s << { endorsements: Plane::ENDORSEMENTS.index(e) } }
     # included_values = (0..3).select { |v| @filter.endorsements.include?(Plane::ENDORSEMENTS[v]) }
     scope.any_of(included_values)
+  end
+
+  def filter_airports scope
+    scope.any_in(base_airport: @filter.airports)
   end
   
   def filter_categories scope

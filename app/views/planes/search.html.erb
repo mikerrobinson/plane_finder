@@ -6,16 +6,18 @@
   <div id="result-container" class="span10">
     
     <div id="result-header">
-      <h4>32 results for Scottsdale</h4>
+      <h4><%= pluralize(@planes.count, 'plane') %> near "<%= params[:filter][:query]%>"</h4>
     </div>
 
     <div class="row-fluid">
 
       <div id="filter-container" class="span4">
-          <div class="control-group string optional"><div class="controls"><input class="string optional span12" id="filter_query" name="filter[query]" placeholder="Airport or Tail Number" size="50" type="text"></div></div>
+        <%= simple_form_for @filter, method: "get", url: 'search' do |f| %>
+          <%= f.hidden_field :previous_query, value: @filter.query %>
+          <%= f.input :query, label: false, input_html: { class: "span12" }, placeholder: "Airport or Tail Number" %>
+          <%= f.button :submit, "Update filter" %>
           
-          <input class="btn span12" name="commit" type="submit" value="Update filters">
-          
+          <% unless @endorsement_options.length < 1 %>
           <div class='filter-group'>
             <div class='hidden-actions pull-right'>
               <div>
@@ -24,23 +26,71 @@
               </div>
             </div>
             <legend>Endorsements</legend>
-            <div class="control-group check_boxes optional"><div class="controls"><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_endorsements_acrobatics" name="filter[endorsements][]" type="checkbox" value="Acrobatics">Acrobatics</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_endorsements_tailwheel" name="filter[endorsements][]" type="checkbox" value="Tailwheel">Tailwheel</label><input name="filter[endorsements][]" type="hidden" value=""></div></div>
+            <%= f.input :endorsements, collection: @endorsement_options, hidden_fields: false, label: false, as: :check_boxes %>
           </div>
-          <legend>Categories</legend>
-          <div class="control-group check_boxes optional"><div class="controls"><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_categories_land" name="filter[categories][]" type="checkbox" value="Land">Land</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_categories_sea" name="filter[categories][]" type="checkbox" value="Sea">Sea</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_categories_amphibian" name="filter[categories][]" type="checkbox" value="Amphibian">Amphibian</label><input name="filter[categories][]" type="hidden" value=""></div></div>
-          <legend>Aircraft Types</legend>
-          <div class="control-group check_boxes optional"><div class="controls"><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_glider" name="filter[aircraft_types][]" type="checkbox" value="Glider">Glider</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_balloon" name="filter[aircraft_types][]" type="checkbox" value="Balloon">Balloon</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_blimpdirigible" name="filter[aircraft_types][]" type="checkbox" value="Blimp/Dirigible">Blimp/Dirigible</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_fixed_wing_single_engine" name="filter[aircraft_types][]" type="checkbox" value="Fixed wing single engine">Fixed wing single engine</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_fixed_wing_multi_engine" name="filter[aircraft_types][]" type="checkbox" value="Fixed wing multi engine">Fixed wing multi engine</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_rotorcraft" name="filter[aircraft_types][]" type="checkbox" value="Rotorcraft">Rotorcraft</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_weight-shift-control" name="filter[aircraft_types][]" type="checkbox" value="Weight-shift-control">Weight-shift-control</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_powered_parachute" name="filter[aircraft_types][]" type="checkbox" value="Powered Parachute">Powered Parachute</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_aircraft_types_gyroplane" name="filter[aircraft_types][]" type="checkbox" value="Gyroplane">Gyroplane</label><input name="filter[aircraft_types][]" type="hidden" value=""></div></div>
-          <legend>Engine Types</legend>
-          <div class="control-group check_boxes optional"><div class="controls"><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_rotary" name="filter[engine_types][]" type="checkbox" value="Rotary">Rotary</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_none" name="filter[engine_types][]" type="checkbox" value="None">None</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_reciprocating" name="filter[engine_types][]" type="checkbox" value="Reciprocating">Reciprocating</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_turbo-prop" name="filter[engine_types][]" type="checkbox" value="Turbo-prop">Turbo-prop</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_turbo-shaft" name="filter[engine_types][]" type="checkbox" value="Turbo-shaft">Turbo-shaft</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_turbo-jet" name="filter[engine_types][]" type="checkbox" value="Turbo-jet">Turbo-jet</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_turbo-fan" name="filter[engine_types][]" type="checkbox" value="Turbo-fan">Turbo-fan</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_ramjet" name="filter[engine_types][]" type="checkbox" value="Ramjet">Ramjet</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_2_cycle" name="filter[engine_types][]" type="checkbox" value="2 Cycle">2 Cycle</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_4_cycle" name="filter[engine_types][]" type="checkbox" value="4 Cycle">4 Cycle</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_unknown" name="filter[engine_types][]" type="checkbox" value="Unknown">Unknown</label><label class="checkbox"><input checked="checked" class="check_boxes optional" id="filter_engine_types_electric" name="filter[engine_types][]" type="checkbox" value="Electric">Electric</label><input name="filter[engine_types][]" type="hidden" value=""></div></div>
+          <% end %>
+          
+          <% unless @airport_options.length < 1 %>
+          <div class='filter-group'>
+            <div class='hidden-actions pull-right'>
+              <div>
+                <a class='select-all'>all</a>
+                <a class='select-none'>none</a>
+              </div>
+            </div>
+            <legend>Airports</legend>
+            <%= f.input :airports, collection: @airport_options, label: false, as: :check_boxes %>
+          </div>
+          <% end %>
+          
+        <% end %>
       </div>
 
       <div id="list-container" class="span8">
-        list container
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>Tail</th>
+              <th>Year</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Rental</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <% @planes.each do |plane| %>
+            <tr data-id="<%= plane.id %>">
+              <td><%= plane.tail_number %></td>
+              <td><%= plane.year %></td>
+              <td><%= plane.manufacturer.titleize %> <%= plane.model %></td>
+              <td><%= plane.abbreviated_type %></td>
+              <td><%= plane.rental %></td>
+              <td><a data-toggle="modal" href="<%= plane_path(plane) %>" data-target="#show-modal">Details</a></td>
+            </tr>
+          <% end %>
+
+        </table>
+
+        <%= paginate @planes %>
       </div>
 
     </div>
 
-
+    <div id="show-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Plane Details</h3>
+      </div>
+      <div class="modal-body">
+        <p>Loading data…</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" id="show-modal-submit">Contact Owner</button>
+      </div>
+    </div>
+    
   </div>
 
   <div id="advertisement-container" class="span2">

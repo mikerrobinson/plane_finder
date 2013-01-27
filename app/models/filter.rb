@@ -6,6 +6,7 @@ class Filter
   field :aircraft_types, :type => Array, :default => Plane::AIRCRAFT_TYPES
   field :engine_types, :type => Array, :default => Plane::ENGINE_TYPES
   field :categories, :type => Array, :default => Plane::CATEGORIES
+  field :airports, :type => Array
   
   def initialize params
     if params
