@@ -1,26 +1,31 @@
-<div class="row">
+<div class="row-fluid plane">
   <div class="span2">
-    <div class="left-column">
-      <img src="http://www.copterplane.net/wp-content/uploads/2012/03/Cessna-172.jpg" class="img-rounded">
-    </div>
-    <!-- <img src="http://static.rcgroups.com/forums/attachments/5/5/6/1/6/a3461279-204-2000_pic.jpg">     -->
+    <%= image_tag 'anon_plane_50x60.png', class: 'profile-image' %>
   </div>
-  <div class="span4">
-    <div class="center-column">
-      <p><h4><%= formatted_name(@plane) %></h4></p>
-      <p><strong><%= @plane.code %> <%= @plane.tail_number %></strong></p>
-      <p><%= @plane.notes_text %></p>
-    </div>
-  </div>
-  <div class="span2">
-    <div class="right-column pull-right">
-      <p><h4><%= formatted_cost(@plane) %></h4></p>
-      <div class="logo-placeholder">logo here</div>
-      <!-- <img src="http://www.allianceflightschools.com/picts/logo2.png"> -->
-    </div>
-  </div>
-</div>
+  <div class="span8">
+    <h4><%= plane.year %> <%= plane.manufacturer.titleize %> <%= plane.name %> <%= plane.model %></h4>
 
-<!-- <li>
-<%= link_to plane.tail_number, plane %>
-</li> -->
+<% if plane.featured? %>
+    <div class="row-fluid">
+
+      <div class="span6">
+        <% if plane.headline %>
+          <p><strong><%= plane.headline %> </strong></p>
+        <% end %>
+        <% if plane.notes_text %>
+          <p><%= plane.notes_text %> </p>
+        <% end %>
+      </div>
+      <div class="span6 school">
+        <p><strong><%= plane.school.name.titleize %> </strong></p>
+      </div>
+    </div>
+<% else %>
+    <p><strong><%= plane.school.name.titleize %> </strong></p>
+<% end %>
+  
+  
+
+  </div>  
+  <div class="span2"><h3><%= "$#{plane.rental_amount.to_i}/hr" %> </h3></div>
+</div>

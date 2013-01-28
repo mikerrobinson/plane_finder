@@ -41,6 +41,7 @@ class Plane
   field :code, type: String
   field :endorsements, type: Array, default: []
   field :notes_text, type: String
+  field :headline, type: String
   field :rental_amount, type: BigDecimal
   field :rental_type, type: String, default: "wet"
   field :external_url, type: String
@@ -100,6 +101,10 @@ class Plane
     return "AMES" if category==2 and aircraft_type==5
     return "Helicopter" if aircraft_type==6
     "#{Plane::AIRCRAFT_TYPES[aircraft_type-1]} #{Plane::CATEGORIES[category-1]}"
+  end
+  
+  def featured?
+    false
   end
   
 end

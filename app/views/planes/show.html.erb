@@ -1,7 +1,19 @@
-  <td><%= @plane.tail_number %></td>
+  <!-- <td><%= @plane.tail_number %></td>
   <td><%= @plane.name %></td>
   <td><%= @plane.base_airport %></td>
   <td><%= @plane.rental_amount %></td>
   <td><%= @plane.rental_type %></td>
   <td><a data-toggle="modal" href="<%= edit_plane_path(@plane) %>" data-target="#edit-modal">Edit</a></td>
-  <td><%= link_to 'Destroy', @plane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Destroy', @plane, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+
+<!-- featured -->
+
+
+<!-- non-featured -->
+<!-- <th>Placehlder image</th>
+<th>Manufacturer, name, model</th>
+<th>School name</th>
+<th>School name</th>
+ -->
+
+<%= render 'plane' %>
