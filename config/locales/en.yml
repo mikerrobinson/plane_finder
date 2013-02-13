@@ -2,8 +2,12 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  site_name: "FindYourPlane.com"
+  site_name: "EasyPlaneRental.com"
   user:
       welcome: "Thank you for joining Project X"
   plane:
       created: "Airplane created"
+  views:
+    planes:
+      rental_amount_na: "Call"
+        

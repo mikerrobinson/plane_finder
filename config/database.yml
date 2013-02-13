@@ -1,23 +1,16 @@
 development:
   adapter: postgresql
-  encoding: unicode
+  host: localhost
   database: plane_finder_development
-  pool: 5
-  username: myapp
-  password:
-
+  
 test:
   adapter: postgresql
   encoding: unicode
   database: plane_finder_test
   pool: 5
-  username: myapp
-  password:
 
 production:
   adapter: postgresql
   encoding: unicode
   database: plane_finder_production
   pool: 5
-  username: myapp
-  password:
