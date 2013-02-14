@@ -5,7 +5,9 @@ class PlanesController < ApplicationController
   
   def index
 
-    selection = Plane.all
+    selection = current_user.planes
+    selection = current_user.school.planes if current_user.school
+    selection = Plane.all if current_user.admin
     
     # reset the filter if keywords changed
     @filter = Filter.new(params[:filter])
@@ -46,7 +48,8 @@ class PlanesController < ApplicationController
   end
   
   def edit
-    @plane = Plane.find(params[:id])
+    @plane = Plane.find_by(tail_number: params[:id].upcase) if params[:id] =~ /^N[1-9][0-9]{0,4}$|^N[1-9][0-9]{0,3}[A-Z]$|^N[1-9][0-9]{0,2}[A-Z]{2}$/i
+    @plane = @plane || Plane.find(params[:id])
 
     respond_with @plane do |format|
       format.html { render :layout => false }
@@ -104,7 +107,6 @@ class PlanesController < ApplicationController
     # @airports = results.map { |plane| plane.base_airport.upcase }.uniq
     # @models = [] # @planes.map { |plane| plane.model.humanize }.uniq
     # 
-    
     selection = Plane.all
     
     # reset the filter if keywords changed

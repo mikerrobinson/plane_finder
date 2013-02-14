@@ -1,9 +1,14 @@
 PlaneFinder::Application.routes.draw do
-  resources :schools
   devise_for :users
-  resources :users
+  resource :user do
+    resources :planes
+  end
+  
+  resources :schools
+  
   resources :planes do
     get 'search', :on => :collection
+    get 'claim', :on => :member
   end
 
   root to: 'static_pages#home'

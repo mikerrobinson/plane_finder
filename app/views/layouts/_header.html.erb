@@ -14,8 +14,10 @@
           <% if user_signed_in? %>
             <% if current_user.admin %>
               <li><%= link_to "Schools", schools_path %></li>
+  				    <li><%= link_to "Planes", planes_path %></li>
+  				  <% else %>
+				      <li><%= link_to "My Planes", user_planes_path %></li>
             <% end %>
-            <li><%= link_to "Planes", planes_path %></li>
             <li><%= link_to "Settings", edit_user_registration_path(current_user) %></li>
             <li class="divider"></li>
             <li>
