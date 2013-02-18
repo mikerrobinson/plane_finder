@@ -1,10 +1,18 @@
 <% provide(:title, @user.email) %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= @user.email %>
-      </h1>
-    </section>
-  </aside>
-</div>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#planes-tab" data-toggle="tab">Planes</a></li>
+    <li><a href="#payment-tab" data-toggle="tab">Payment</a></li>
+    <li><a href="#profile-tab" data-toggle="tab">Profile</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="planes-tab">
+      <p>Plane info</p>
+    </div>
+    <div class="tab-pane" id="payment-tab">
+      <p>Account/billing info</p>
+    </div>
+    <div class="tab-pane" id="profile-tab">
+      <p>Profile info</p>
+    </div>
+  </div>

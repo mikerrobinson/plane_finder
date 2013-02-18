@@ -122,8 +122,12 @@ body {
       }
            
     }
+
   }
   
+	#plane-data, #rental-data {
+		padding: 10px;
+	}
 }
 
 #advertisement-container {
@@ -139,4 +143,12 @@ body {
     padding: 10px;
   } 
    
+}
+
+.form-horizontal .control-label {
+	width: 80px;
+}
+
+.form-horizontal .controls {
+margin-left: 100px;
 }

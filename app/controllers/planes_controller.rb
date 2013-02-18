@@ -48,11 +48,10 @@ class PlanesController < ApplicationController
   end
   
   def edit
-    @plane = Plane.find_by(tail_number: params[:id].upcase) if params[:id] =~ /^N[1-9][0-9]{0,4}$|^N[1-9][0-9]{0,3}[A-Z]$|^N[1-9][0-9]{0,2}[A-Z]{2}$/i
+    @plane = Plane.where(tail_number: params[:id].upcase).first if params[:id] =~ /^[1-9][0-9]{0,4}$|^[1-9][0-9]{0,3}[A-Z]$|^[1-9][0-9]{0,2}[A-Z]{2}$/i
     @plane = @plane || Plane.find(params[:id])
-
+    
     respond_with @plane do |format|
-      format.html { render :layout => false }
       format.json { render :layout => false, :text => @plane.to_json }
     end
   end
@@ -149,6 +148,11 @@ class PlanesController < ApplicationController
     
   end
 
+  def claim
+    @plane = Plane.where(tail_number: params[:id].upcase).first if params[:id] =~ /^[1-9][0-9]{0,4}$|^[1-9][0-9]{0,3}[A-Z]$|^[1-9][0-9]{0,2}[A-Z]{2}$/i
+    
+  end
+  
   private
   
   def filter_endorsements scope

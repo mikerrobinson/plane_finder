@@ -1,4 +1,35 @@
-<% provide(:title, "EasyPlaneRental.com - #{params[:id].upcase} Details") %>
+<!-- Lister details:
+
+if no school association:
+  name
+  website
+  email
+  phone
+  facebook page (?)
+  
+if school:
+  preview school info
+  prompt to add school
+  
+
+Billing details:
+
+prompt for or verify billing info
+
+select plan
+  One year featured listing - $40
+  Lifetime featured listing - $100
+
+
+  Coupon code: [   ]
+
+
+ information:
+
+Use "Sawyer Aviation" information
+Create a new school
+Use  -->
+<% provide(:title, "EasyPlaneRental.com - Claim Ownership for #{params[:id].upcase}") %>
 
 <!-- sidebar -->
 <div class="row-fluid">
@@ -6,34 +37,50 @@
   <div id="result-container" class="span10">
     
     <div id="result-header">
-      <h4>Details for <%= params[:id].upcase %></h4>
+      <h4>Claim Ownership for <%= params[:id].upcase %></h4>
     </div>
 
     <div class="row-fluid">
 
       <%= simple_form_for(@plane, html: { :class => 'form-horizontal' }, remote: true) do |f| %>
 
+      <div class="span11">
+        <fieldset>
+          <legend>Ownership Information</legend>
+          <p>EasyPlaneRental.com allows every plane to have one owner.  Claiming a plane on behalf of a school or club provides several benefits:
+            <ul>
+              <li>Owners have exclusive access to maintaining plane information, ensuring information is up-to-date and relevant</li>
+              <li>Owners can differentiate their plane by providing extra details like equipment descriptions, photos, and checkout requirements</li>
+              <li>Owners can link to schedules and their company website to make it as painless as possible for renters</li>
+            </ul>
+          </p> 
+        </fieldset>
+      </div>
+      
       <div id="plane-data" class="span5">
         <fieldset>
-          <legend>Plane Information</legend>
-          <%= f.input :tail_number, wrapper: :prepend do %>
-            <%= content_tag :span, "N", class: "add-on" %>
-            <%= f.input_field :tail_number, onblur: "value=value.toUpperCase();" %>
+          <legend>School/Club Information</legend>
+          
+          <% if current_user.admin %>
+            <%= f.input :school_id, collection: School.all, label: "Name" %>
           <% end %>
-          <%= f.input :year %>
-          <%= f.input :manufacturer, placeholder: "Cessna, Diamond, Cirrus, etc" %>
-          <%= f.input :model, placeholder: "172N, SR22, etc" %>
-          <%= f.input :name, placeholder: "Skyhawk, Arrow, etc" %>
-          <%= f.input :category_value, label: "Category", collection: Plane::CATEGORIES %>
-          <%= f.input :aircraft_type_value, label: "Aircraft type", collection: Plane::AIRCRAFT_TYPES %>
-          <%= f.input :engine_type_value, label: "Engine type", collection: Plane::ENGINE_TYPES %>
-          <%= f.input :endorsement_values, label: "Endorsements", collection: Plane::ENDORSEMENTS, as: :check_boxes %>
+
+          <%= f.simple_fields_for :school do |s| %>
+                <%= s.input :name %>
+                <%= s.input :website %>
+                <%= s.input :address, as: :text, input_html: { rows: 3 } %>
+                <%= s.input :phone %>
+                <%= s.input :email %>
+                <%= s.input :base_airport %>
+              </div>
+          <% end %>
+          
         </fieldset>
       </div>
 
       <div id="rental-data" class="span6">
         <fieldset>
-          <legend>Listing Information</legend>
+          <legend>Account Information</legend>
           <% if @plane.featured? %>
             <p>This plane is owned and listed by <a href="<%= @plane.school.website %>" target="_blank"><%= @plane.school.name %></a>.</p>
             
@@ -95,6 +142,11 @@
         </fieldset>
       </div>
 
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+      
       <% end %>
 
     </div>

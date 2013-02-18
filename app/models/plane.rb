@@ -104,7 +104,18 @@ class Plane
   end
   
   def featured?
-    false
+    true
+  end
+  
+  def featured_until
+    Date.today + 1.month
+  end
+  
+  def listing_incomplete?
+    return true if rental_amount.blank?
+    return true if school.blank?
+    return true if base_airport.blank?
+    return false
   end
   
 end
